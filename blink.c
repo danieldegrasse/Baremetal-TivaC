@@ -5,7 +5,7 @@
 /**
  * This program sets GPIO pin PF1 (connected to red LED) to output.
  */
-void mymain(void) {
+void main(void) {
    int i;
     // Enable clock gating on RCGC2
     HWREG(SYSTEM_CTRL_BASE + 0x608) |= BIT5;

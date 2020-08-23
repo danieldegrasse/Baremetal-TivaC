@@ -11,12 +11,12 @@ extern unsigned char INIT_DATA_START;
 extern unsigned char INIT_DATA_END;
 extern unsigned char BSS_START;
 extern unsigned char BSS_END;
-extern unsigned int STACK_START;
+extern unsigned char STACK_START;
 
 // Function prototypes
 void init(void);
 void DefaultISRHandler(void);
-extern void mymain(void); // Assume that the user will provide a main function
+extern void main(void); // Assume that the user will provide a main function
 
 /*
  * Exception Vector Table. See page 103 of Datasheet for list.
@@ -71,5 +71,5 @@ void init(void) {
         *dst++ = 0;
     }
     // init is done. Call the main entry point.
-    mymain();
+    main();
 }
