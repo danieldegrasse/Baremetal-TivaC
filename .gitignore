@@ -1,0 +1,6 @@
+*.map
+*.list
+*.out
+*.bin
+*.o
+.vscode
