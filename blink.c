@@ -7,11 +7,11 @@
  */
 void main(void) {
    int i;
-    // Enable clock gating on RCGC2
-    HWREG(SYSTEM_CTRL_BASE + 0x608) |= BIT5;
+    // Enable clock gating on RCGCGPIO
+    HWREG(SYSCTL_BASE + RCGCGPIO) |= BIT5;
     // Wait for clock gating control to work.
     while (1) {
-        if (HWREG(SYSTEM_CTRL_BASE + 0xA08) & (BIT5))
+        if (HWREG(SYSCTL_BASE + PRGPIO) & (BIT5))
             break;
     }
     HWREG(GPIOF_BASE + GPIODIR) |= BIT1;
