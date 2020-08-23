@@ -27,4 +27,5 @@ SECTIONS
 	  
 	} > ram
 	BSS_END = .;
+	STACK_START = ORIGIN(ram) + LENGTH(ram);
 }

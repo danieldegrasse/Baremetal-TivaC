@@ -24,10 +24,10 @@ void mymain(void) {
      */
     while (1) {
         HWREG(GPIOF_BASE + GPIODATA + (BIT1 << 2)) = BIT1;
-        i = 1000000;
+        i = 100000;
         while(i--);
         HWREG(GPIOF_BASE + GPIODATA + (BIT1 << 2)) &= ~BIT1;
-        i = 1000000;
+        i = 100000;
         while(i--);
     }
 }
