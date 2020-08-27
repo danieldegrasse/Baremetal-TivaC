@@ -2,8 +2,9 @@ GCC_INSTALL_DIR=/usr
 GCC_BIN_DIR=$(GCC_INSTALL_DIR)/bin
 CC=$(GCC_BIN_DIR)/arm-none-eabi-gcc
 LD=$(GCC_BIN_DIR)/arm-none-eabi-ld
+AS=$(GCC_BIN_DIR)/arm-none-eabi-as
 CFLAGS=-mthumb -nostdlib -nostartfiles -ffreestanding -march=armv7-m -mcpu=cortex-m3 -g
-OBJS=init.o blink.o
+OBJS=init.o blink.o loop.o
 PROG=blink
 
 $(PROG).bin: $(PROG).out
@@ -15,6 +16,9 @@ $(PROG).out: $(OBJS)
 
 %.o: %.c
 	$(CC) -c -o $@ $< $(CFLAGS)
+
+loop.o:loop.s
+	$(AS) -o $@ $<
 
 clean:
 	rm $(OBJS) $(PROG).out $(PROG).bin

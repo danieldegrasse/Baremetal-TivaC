@@ -2,16 +2,20 @@
 
 #define HWREG(x) (*((volatile unsigned int *)(x)))
 
+void delay(int x);
+extern void _entry(void);
+
 /**
  * This program sets GPIO pin PF1 (connected to red LED) to output.
  */
 void main(void) {
-   int i;
+    // Run assembly snippet first
+    _entry();
     // Enable clock gating on RCGCGPIO
-    HWREG(SYSCTL_BASE + RCGCGPIO) |= BIT5;
+    HWREG(SYSCTL_RCGCGPIO) |= BIT5;
     // Wait for clock gating control to work.
     while (1) {
-        if (HWREG(SYSCTL_BASE + PRGPIO) & (BIT5))
+        if (HWREG(SYSCTL_PRGPIO) & (BIT5))
             break;
     }
     HWREG(GPIOF_BASE + GPIODIR) |= BIT1;
@@ -24,10 +28,16 @@ void main(void) {
      */
     while (1) {
         HWREG(GPIOF_BASE + GPIODATA + (BIT1 << 2)) = BIT1;
-        i = 100000;
-        while(i--);
+        delay(100000);
         HWREG(GPIOF_BASE + GPIODATA + (BIT1 << 2)) &= ~BIT1;
-        i = 100000;
-        while(i--);
+        delay(100000);
     }
+}
+
+/**
+ * Delays for several clock cycles
+ */
+void delay(int x) {
+    while (x--)
+        ;
 }
