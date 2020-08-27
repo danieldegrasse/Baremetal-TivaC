@@ -1,8 +1,8 @@
 
 .thumb @use thumb mode (Cortex only supports thumb mode)
 .text
-.global _entry @export the entry point
-_entry:
+.global _asm_entry @export the entry point
+_asm_entry:
     @ First, enable clock gating on RCGCGPIO
     LDR r4, SYSCTL_RCCGPIO @load value of SYSCTL_RCGCGPIO symbol into r4
     LDR r5, [r4] @load value of RCGCGPIO
@@ -69,5 +69,5 @@ SYSCTL_PRGPIO: .word 1074784776
 GPIOFDATA: .word 1073893384
 GPIOFDIR: .word 1073894400
 GPIOFDEN: .word 1073894684
-DELAY_LEN: .word 500000
+DELAY_LEN: .word 700000
 
