@@ -17,7 +17,6 @@ extern unsigned char STACK_START;
 void init(void);
 void DefaultISRHandler(void);
 extern void main(void); // Assume that the user will provide a main function
-extern void _asm_entry(void); // If we are running assembly version
 /*
  * Exception Vector Table. See page 103 of Datasheet for list.
  * Reset vector is required for code to run.
@@ -71,6 +70,5 @@ void init(void) {
         *dst++ = 0;
     }
     // init is done. Call the main entry point.
-    //main();
-    _asm_entry();
+    main();
 }

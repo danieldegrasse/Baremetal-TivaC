@@ -36,7 +36,7 @@ _BLINK_L:
     MOV r5, #2
     STR r5, [r4]
     LDR r0, DELAY_LEN @ set argument for function call
-    BL _DELAY 
+    BL _DELAY  @ make function call
     @ Now zero out GPIOFDATA to turn off LED
     MOV r5, #0
     STR r5, [r4]
