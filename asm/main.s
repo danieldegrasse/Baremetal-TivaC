@@ -1,4 +1,5 @@
 
+@ Main code: sets up GPIO on PF.1, and blinks the LED located there
 .thumb @use thumb mode (Cortex only supports thumb mode)
 .text
 .global _asm_entry @export the entry point
@@ -61,8 +62,6 @@ _DELAY_RET:
 
 
 
-
-    @ A nice little NOP sled to keep the data after this word aligned.    
 
 SYSCTL_RCCGPIO: .word 1074783752
 SYSCTL_PRGPIO: .word 1074784776

@@ -22,7 +22,7 @@ extern void main(void); // Assume that the user will provide a main function
  * Reset vector is required for code to run.
  */
 const uint32_t exception_vectors[] __attribute__((section(".vectors"))) = {
-    (uint32_t)&STACK_START,        /* address for top of stack */
+    (uint32_t)&STACK_START,      /* address for top of stack */
     (uint32_t)init,              /* Reset handler */
     (uint32_t)DefaultISRHandler, /* NMI */
     (uint32_t)DefaultISRHandler, /* Hard fault */

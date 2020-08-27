@@ -1,4 +1,3 @@
-/* useful reference: www.linuxselfhelp.com/gnu/ld/html_chapter/ld_toc.html */
 MEMORY
 {
     flash : org = 0x00000000, len = 256k
@@ -15,11 +14,13 @@ SECTIONS
         } >flash
 	. = ORIGIN(ram);
         .data : {
-	  INIT_DATA_VALUES = LOADADDR(.data);
-	  INIT_DATA_START = .;
+	  INIT_DATA_VALUES = LOADADDR(.data); /* Where we need to copy .data from */
+	  INIT_DATA_START = .; /* Where we need to copy data to */
 	    *(.data);
 	  INIT_DATA_END = .;
-        } >ram AT>flash
+		/* AT here places the .data section in the ROM of the image. 
+		   We copy it to RAM in the init() function */
+        } >ram AT>flash 
 	BSS_START = .;
 	.bss : {
 	  
