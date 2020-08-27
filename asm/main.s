@@ -1,7 +1,7 @@
 
 @ Main code: sets up GPIO on PF.1, and blinks the LED located there
 .thumb @use thumb mode (Cortex only supports thumb mode)
-.text
+.section .text
 .global _asm_entry @export the entry point
 _asm_entry:
     @ First, enable clock gating on RCGCGPIO
@@ -34,14 +34,16 @@ _SET_BIT1:
 _BLINK:
     LDR r4, GPIOFDATA
 _BLINK_L:
+    @ Get delay length from data section
+    LDR r6, DELAY_PTR
     MOV r5, #2
     STR r5, [r4]
-    LDR r0, DELAY_LEN @ set argument for function call
+    LDR r0, [r6] @ load delay len as arg for function call
     BL _DELAY  @ make function call
     @ Now zero out GPIOFDATA to turn off LED
     MOV r5, #0
     STR r5, [r4]
-    LDR r0, DELAY_LEN @ set argument for function cal
+    LDR r0, [r6] @ load delay len as arg for function call
     BL _DELAY 
     b _BLINK_L @ jump back to start of blink sequence
 
@@ -59,14 +61,17 @@ _DELAY_RET:
     POP {r4-r7}
     BX lr @ return back to caller
 
-
-
-
-
+.align 2
 SYSCTL_RCCGPIO: .word 1074783752
 SYSCTL_PRGPIO: .word 1074784776
 GPIOFDATA: .word 1073893384
 GPIOFDIR: .word 1073894400
 GPIOFDEN: .word 1073894684
-DELAY_LEN: .word 700000
+DELAY_PTR: .word DELAY_LEN
 
+
+.align 2
+.section .data
+@ Although unnessary, placing the delay in the 
+@ data section checks to make sure our init routine copies it correctly
+DELAY_LEN: .word 700000

@@ -16,9 +16,10 @@ SECTIONS
 		DATA_ROM_ADDR = LOADADDR(.data);
 		DATA_RAM_DEST_START = .;
 		*(.data);
-		DATA_ROM_DEST_END = .;
+		DATA_RAM_DEST_END = .;
 	} > SRAM AT>flash
 	BSS_START = .;
 	.bss : {*(.bss);} > SRAM
 	BSS_END = .;
+	STACK_START = ORIGIN(SRAM) + LENGTH(SRAM);
 }
