@@ -7,6 +7,16 @@
     .word _init @reset vector
     .word hang @nmi interrupt handler
     .word hang @hard fault isr
+    @ Below handlers not strictly required
+    .word hang @bus fault
+    .word hang @mmu fault
+    .word hang @usage fault
+    .word 0 @reserved
+    .word hang @SVCall
+    .word hang @DebugMonitor
+    .word 0 @reserved
+    .word hang @PendSV
+    .word hang @SysTick
 
 .section .text @ place the init code in the text section
 .thumb_func @force bx entry to this point
